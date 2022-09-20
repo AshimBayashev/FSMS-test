@@ -1,0 +1,70 @@
+<div class="table-row">
+	<div class="w-10">
+		<i class="pi"
+		   [class.pi-chevron-down]="dictionary.isExpanded"
+		   [class.pi-chevron-right]="!dictionary.isExpanded"
+		   (click)="expandCollapse(dictionary.isExpanded)"
+		></i>
+		<span>{{dictionary.code}}</span>
+	</div>
+	<div class="w-15">
+		<span>{{dictionary.name_kk}}</span>
+	</div>
+	<div class="w-15">
+		<span>{{dictionary.name_ru}}</span>
+	</div>
+	<div class="w-20">
+		<span>{{dictionary.name_en}}</span>
+	</div>
+	<div class="w-10">
+		<span>{{dictionary.create_date | date : 'shortDate'}}</span>
+	</div>
+	<div class="w-10">
+		<span>{{dictionary.update_date | date : 'shortDate'}}</span>
+	</div>
+	<div class="w-5 center-cell">
+		<p-checkbox [(ngModel)]="dictionary.is_hierarchical" [binary]="true" [disabled]="true"></p-checkbox>
+	</div>
+	<div class="w-5 center-cell">
+		<p-checkbox [(ngModel)]="dictionary.is_common" [binary]="true" [disabled]="true"></p-checkbox>
+	</div>
+	<div class="w-10 d">
+		<button pButton type="button" icon="pi pi-pencil" class="ui-button ui-button-warning mr-2"
+				pTooltip="Редактировать справочник" (click)="openModal(DialogModes.Edit)"></button>
+		<button pButton type="button" icon="pi pi-file" class="ui-button"
+				pTooltip="Посмотр данных" (click)="openModal(DialogModes.View)"></button>
+	</div>
+</div>
+
+<ng-container *ngIf="dictionary.isExpanded && dictionary.dictionaryItemsList.length">
+	<div class="table-container">
+		<div class="fsms-table">
+			<div class="fsms-table--header">
+				<div class="w-10">
+					<span>Код</span>
+				</div>
+				<div class="w-15">
+					<span>Наименование на казахском</span>
+				</div>
+				<div class="w-15">
+					<span>Наименование на русском</span>
+				</div>
+				<div class="w-20">
+					<span>Наименование на английском</span>
+				</div>
+				<div class="w-10">
+					<span>Начальная версия</span>
+				</div>
+				<div class="w-10">
+					<span>Версия окончания</span>
+				</div>
+				<div class="w-20">
+					<span>Описание</span>
+				</div>
+			</div>
+			<ng-container *ngFor="let dictionary of dictionary.dictionaryItemsList">
+				<app-dictionary-data-table-item [dictionaryItem]="dictionary"></app-dictionary-data-table-item>
+			</ng-container>
+		</div>
+	</div>
+</ng-container>

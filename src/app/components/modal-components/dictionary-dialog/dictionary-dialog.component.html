@@ -1,0 +1,59 @@
+<div class="modal-header">
+	<h4 class="modal-title pull-left">
+		<ng-container [ngSwitch]="mode">
+			<ng-container *ngSwitchCase="DialogModes.View">Просмотр данных справочника</ng-container>
+			<ng-container *ngSwitchCase="DialogModes.Edit">Редактирование данных справочника</ng-container>
+			<ng-container *ngSwitchCase="DialogModes.Create">Создание нового справочника</ng-container>
+		</ng-container>
+	</h4>
+	<button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<form [formGroup]="form">
+		<div class="w-100 mb-4">
+			<span class="ui-float-label">
+				<input class="w-100" formControlName="code" id="code" type="text" size="30" pInputText>
+				<label for="code">Код справочника</label>
+			</span>
+		</div>
+		<div class="w-100 d-flex flex-row justify-content-between mb-4">
+			<div class="w-40">
+				<span class="ui-float-label">
+					<input formControlName="name_kk" id="name-kk" type="text" size="30" pInputText
+						   [disabled]="inViewMode">
+					<label for="name-kk">наименование на казахском</label>
+				</span>
+			</div>
+			<div class="w-40">
+				<span class="ui-float-label">
+					<input formControlName="name_ru" id="name_ru" type="text" size="30" pInputText
+						   [disabled]="inViewMode">
+					<label for="name_ru">наименование на русском</label>
+				</span>
+			</div>
+		</div>
+		<div class="w-100 mb-4">
+			<span class="ui-float-label">
+				<input class="w-100" formControlName="name_ru" id="name_en" type="text" size="30" pInputText>
+				<label for="name_ru">наименование на английском</label>
+			</span>
+		</div>
+
+		<div class="w-100 d-flex flex-row justify-content-between mb-4">
+			<div class="w-40">
+				<p-checkbox formControlName="is_common" label="Признак справочника общей структуры" [binary]="true"></p-checkbox>
+			</div>
+			<div class="w-40">
+				<p-checkbox formControlName="is_hierarchical" label="Признак иерархичного справочника" [binary]="true"></p-checkbox>
+			</div>
+		</div>
+
+		<div class="w-100 d-flex justify-content-end">
+			<button *ngIf="!inViewMode" pButton type="button" label="Сохранить" class="ui-button-info mr-2"
+					(click)="saveData(mode)"></button>
+			<button pButton type="button" label="Закрыть" class="ui-button-danger" (click)="modal.hide()"></button>
+		</div>
+	</form>
+</div>
